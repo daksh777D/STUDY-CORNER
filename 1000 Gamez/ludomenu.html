@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Game Menu</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: #1e1e2f;
+      color: white;
+    }
+    .menu {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 20px;
+      padding: 40px;
+      max-width: 1000px;
+      margin: auto;
+    }
+    .ludo {
+      background: #2c2c40;
+      border-radius: 15px;
+      text-align: center;
+      padding: 15px;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.3s;
+    }
+    .ludo:hover {
+      background: #3a3a55;
+      transform: scale(1.05);
+    }
+    .ludo img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+    .ludo-name {
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+
+
+        .game {
+      background: #2c2c40;
+      border-radius: 15px;
+      text-align: center;
+      padding: 15px;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.3s;
+    }
+    .game:hover {
+      background: #3a3a55;
+      transform: scale(1.05);
+    }
+    .game img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+    .game-name {
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+  </style>
+</head>
+<body>
+
+
+
+    <div class="ludo" >
+      <img src="ludo.jpg" alt="Ludo">
+      <div class="ludo-name">Ludo</div>
+    </div>
+
+  <div class="menu">
+
+
+    <div class="game" onclick="goTo('ludo.html')">
+     
+      <div class="game-name">2 player</div>
+    </div>
+    <div class="game" onclick="goTo('ludo.html')">
+      
+      <div class="game-name">3 player</div>
+    </div>
+    <div class="game" onclick="goTo('ludo.html')">
+    
+      <div class="game-name">4 player</div>
+    </div>
+   
+   
+  </div>
+
+
+
+  <marquee behavior="scroll" direction="right" scrollamount="5">
+  credit goes to Akky Srivastava Akash with ❤ 
+</marquee>
+
+ 
+
+  <script>
+    function goTo(page) {
+      window.location.href = page;
+    }
+  </script>
+
+</body>
+</html>

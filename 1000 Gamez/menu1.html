@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Game Menu</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: #1e1e2f;
+      color: white;
+    }
+    .menu {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 20px;
+      padding: 40px;
+      max-width: 1000px;
+      margin: auto;
+    }
+    .game {
+      background: #2c2c40;
+      border-radius: 15px;
+      text-align: center;
+      padding: 15px;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.3s;
+    }
+    .game:hover {
+      background: #3a3a55;
+      transform: scale(1.05);
+    }
+    .game img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+    .game-name {
+      font-size: 16px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="menu">
+    <div class="game" onclick="goTo('ludomenu.html')">
+      <img src="ludo.jpg" alt="Ludo">
+      <div class="game-name">Ludo</div>
+    </div>
+    <div class="game" onclick="goTo('tictactoe.html')">
+      <img src="tictactoe.jpg" alt="Tic Tac Toe">
+      <div class="game-name">Tic Tac Toe</div>
+    </div>
+    <div class="game" onclick="goTo('snake.html')">
+      <img src="snake.jpg" alt="Snake Game">
+      <div class="game-name">Snake</div>
+    </div>
+    <div class="game" onclick="goTo('chess.html')">
+      <img src="chess.jpg" alt="Chess">
+      <div class="game-name">Chess</div>
+    </div>
+    <div class="game" onclick="goTo('cargame.html')">
+      <img src="cargame.jpg" alt="Car Game">
+      <div class="game-name">Car game</div>
+    </div>
+    <div class="game" onclick="goTo('snakeandladders.html')">
+      <img src="sankeandladders.jpg" alt="Flappy Bird">
+      <div class="game-name">sanke and ladders</div>
+    </div>
+    <div class="game" onclick="goTo('comingsoon.html')">
+      <img src="carrom.jpg" alt="Pong">
+      <div class="game-name">carrom</div>
+    </div>
+    <div class="game" onclick="goTo('comingsoon.html')">
+      <img src="businessgame.webp" alt="Minesweeper">
+      <div class="game-name">business</div>
+    </div>
+    <div class="game" onclick="goTo('comingsoon.html')">
+      <img src="corrsword.jpg" alt="2048">
+      <div class="game-name">crossword</div>
+    </div>
+    <div class="game" onclick="goTo('comingsoon.html')">
+      <img src="memorygame.jpg" alt="Sudoku">
+      <div class="game-name">memory game</div>
+    </div>
+
+    <div class="game" onclick="goTo('maze-695.html')">
+      <img src="maze.png" alt="Sudoku">
+      <div class="game-name">maze</div>
+    </div>
+
+
+  </div>
+
+  <script>
+    function goTo(page) {
+      window.location.href = page;
+    }
+  </script>
+
+</body>
+</html>

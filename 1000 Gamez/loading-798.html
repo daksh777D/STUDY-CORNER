@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Devices Loading</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><link rel="stylesheet" href="./style-798.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="device">
+	<div class="device__a">
+		<div class="device__a-1"></div>
+		<div class="device__a-2"></div>
+	</div>
+	<div class="device__b"></div>
+	<div class="device__c"></div>
+	<div class="device__d"></div>
+	<div class="device__e"></div>
+	<div class="device__f"></div>
+	<div class="device__g"></div>
+</div>
+
+
+
+<div id="loadingScreen">
+  <div id="loadingText">Loading... 0%</div>
+  <div class="loadingBarContainer">
+    <div class="loadingBar" id="loadingBar"></div>
+  </div>
+</div>
+
+
+
+<!-- partial -->
+  
+
+
+<script>
+  let progress = 0;
+  const bar = document.getElementById('loadingBar');
+  const text = document.getElementById('loadingText');
+
+  const interval = setInterval(() => {
+    progress += 1;
+    bar.style.width = progress + '%';
+    text.textContent = 'Loading... ' + progress + '%';
+
+    if (progress >= 100) {
+      clearInterval(interval);
+      // Redirect to another page after 0.5s delay
+      setTimeout(() => {
+        window.location.href = 'start.html'; // Change to your target page
+      }, 500);
+    }
+  }, 30); // Simulated loading every 30ms
+</script>
+
+
+
+</body>
+</html>

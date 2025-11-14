@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>2-Player Ludo</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    #board {
+      display: grid;
+      grid-template-columns: repeat(15, 40px);
+      grid-template-rows: repeat(15, 40px);
+      gap: 1px;
+      margin-top: 20px;
+      background-color: black;
+    }
+    .cell {
+      width: 40px;
+      height: 40px;
+      background: white;
+    }
+    .home-blue { background: lightblue; }
+    .home-green { background: lightgreen; }
+    .token {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      margin: auto;
+    }
+    .blue-token { background: blue; }
+    .green-token { background: green; }
+    #controls {
+      margin-top: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>2-Player Ludo</h1>
+  <div id="board"></div>
+
+  <div id="controls">
+    <button onclick="rollDice()">Roll Dice</button>
+    <button onclick="exitGame()">Exit</button>
+    <p id="dice-result"></p>
+    <p id="turn-info"></p>
+  </div>
+
+  <script>
+    const board = document.getElementById("board");
+    const diceResult = document.getElementById("dice-result");
+    const turnInfo = document.getElementById("turn-info");
+
+    let currentPlayer = 'blue';
+    let bluePosition = 0;
+    let greenPosition = 0;
+
+    const path = [
+      [6, 14],[6,13],[6,12],[6,11],[6,10],[6,9],
+      [5,8],[4,8],[3,8],[2,8],[1,8],[0,8],
+      [0,7],[1,7],[2,7],[3,7],[4,7],[5,7],
+      [6,6],[6,5],[6,4],[6,3],[6,2],[6,1],[6,0],
+      [7,0],[7,1],[7,2],[7,3],[7,4],[7,5],
+      [8,6],[8,7],[9,7],[10,7],[11,7],[12,7],[13,7],[14,7],
+      [14,8],[13,8],[12,8],[11,8],[10,8],[9,8],[8,8],
+      [8,9],[8,10],[8,11],[8,12],[8,13],[8,14],
+      [7,14],[7,13],[7,12],[7,11],[7,10],[7,9],
+      [7,8]
+    ];
+
+    function drawBoard() {
+      for (let row = 0; row < 15; row++) {
+        for (let col = 0; col < 15; col++) {
+          const cell = document.createElement("div");
+          cell.className = "cell";
+
+          if (row < 6 && col < 6) cell.classList.add("home-blue");
+          if (row > 8 && col > 8) cell.classList.add("home-green");
+
+          board.appendChild(cell);
+        }
+      }
+      placeTokens();
+    }
+
+    function placeTokens() {
+      document.querySelectorAll(".token").forEach(t => t.remove());
+
+      const [br, bc] = path[bluePosition];
+      const bIndex = br * 15 + bc;
+      const bCell = board.children[bIndex];
+      const blue = document.createElement("div");
+      blue.className = "token blue-token";
+      bCell.appendChild(blue);
+
+      const [gr, gc] = path[greenPosition];
+      const gIndex = gr * 15 + gc;
+      const gCell = board.children[gIndex];
+      const green = document.createElement("div");
+      green.className = "token green-token";
+      gCell.appendChild(green);
+    }
+
+    function rollDice() {
+      const roll = Math.floor(Math.random() * 6) + 1;
+      diceResult.textContent = `${currentPlayer.toUpperCase()} rolled: ${roll}`;
+
+      if (currentPlayer === 'blue') {
+        bluePosition += roll;
+        if (bluePosition >= path.length - 1) {
+          alert("Blue wins!");
+          window.location.href = "win.html";
+          return;
+        }
+        currentPlayer = 'green';
+      } else {
+        greenPosition += roll;
+        if (greenPosition >= path.length - 1) {
+          alert("Green wins!");
+          window.location.href = "win.html";
+          return;
+        }
+        currentPlayer = 'blue';
+      }
+
+      placeTokens();
+      turnInfo.textContent = `Current Turn: ${currentPlayer.toUpperCase()}`;
+    }
+
+    function exitGame() {
+      window.location.href = "exit.html";
+    }
+
+    drawBoard();
+    turnInfo.textContent = `Current Turn: ${currentPlayer.toUpperCase()}`;
+  </script>
+</body>
+</html>

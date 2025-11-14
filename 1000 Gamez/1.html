@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>2 Player Ludo</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: Arial; text-align: center; margin: 0; background: #f0f0f0; }
+    #board {
+      display: grid;
+      grid-template-columns: repeat(15, 30px);
+      grid-template-rows: repeat(15, 30px);
+      margin: 20px auto;
+      border: 4px solid #000;
+      width: 450px;
+    }
+    .cell {
+      border: 1px solid #ccc;
+      width: 30px; height: 30px;
+    }
+    .blue-home { background: lightblue; }
+    .green-home { background: lightgreen; }
+    .path { background: white; }
+    .blue-token, .green-token {
+      border-radius: 50%;
+      width: 24px; height: 24px;
+      margin: auto;
+      margin-top: 3px;
+    }
+    .blue-token { background: blue; }
+    .green-token { background: green; }
+    #controls { margin-top: 10px; }
+    button { padding: 10px 20px; margin: 5px; font-size: 16px; }
+    #message { font-size: 20px; margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <h1>2 Player Ludo</h1>
+  <div id="board"></div>
+  <div id="controls">
+    <button onclick="rollDice()">Roll Dice</button>
+    <button onclick="exitGame()">Exit</button>
+    <p id="message"></p>
+  </div>
+
+  <script>
+    const board = document.getElementById("board");
+    const message = document.getElementById("message");
+
+    const path = [
+      6, 7, 8, 9, 10, 11, 12,
+      27, 42, 57,
+      72, 73, 74, 75, 76, 77, 78,
+      93, 108, 123,
+      138, 137, 136, 135, 134, 133, 132,
+      117, 102, 87,
+      72, 71, 70, 69, 68, 67, 66,
+      51, 36, 21,
+      6
+    ]; // simplified linear path
+
+    let playerPositions = [0, 0];
+    let currentPlayer = 0; // 0 = Blue, 1 = Green
+    let gameOver = false;
+
+    function createBoard() {
+      for (let i = 0; i < 225; i++) {
+        const div = document.createElement("div");
+        div.classList.add("cell");
+
+        // Home areas
+        if (i >= 0 && i < 6 * 6) div.classList.add("blue-home");
+        if (i >= 198 && i < 225) div.classList.add("green-home");
+
+        // Path
+        if (path.includes(i)) div.classList.add("path");
+
+        div.setAttribute("id", `cell-${i}`);
+        board.appendChild(div);
+      }
+    }
+
+    function drawTokens() {
+      document.querySelectorAll(".blue-token, .green-token").forEach(e => e.remove());
+
+      const blueCell = document.getElementById("cell-" + path[playerPositions[0]]);
+      const greenCell = document.getElementById("cell-" + path[playerPositions[1]]);
+
+      const blueToken = document.createElement("div");
+      blueToken.className = "blue-token";
+      blueCell.appendChild(blueToken);
+
+      const greenToken = document.createElement("div");
+      greenToken.className = "green-token";
+      greenCell.appendChild(greenToken);
+    }
+
+    function rollDice() {
+      if (gameOver) return;
+
+      const roll = Math.floor(Math.random() * 6) + 1;
+      message.textContent = `${currentPlayer === 0 ? "Blue" : "Green"} rolled a ${roll}`;
+
+      playerPositions[currentPlayer] += roll;
+
+      if (playerPositions[currentPlayer] >= path.length - 1) {
+        message.textContent = `${currentPlayer === 0 ? "Blue" : "Green"} wins! Redirecting...`;
+        gameOver = true;
+        setTimeout(() => window.location.href = "win.html", 2000);
+        return;
+      }
+
+      drawTokens();
+      currentPlayer = 1 - currentPlayer; // switch player
+    }
+
+    function exitGame() {
+      window.location.href = "exit.html";
+    }
+
+    createBoard();
+    drawTokens();
+  </script>
+</body>
+</html>
