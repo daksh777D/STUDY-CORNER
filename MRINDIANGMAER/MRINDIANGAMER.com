@@ -1,11 +1,3 @@
-<html>
-  <head>
-    
-  <title>MR INDIAN GAMER</title>
 
-      </head>
-  <body>
-    
-  </body>
-</html>
+
 
