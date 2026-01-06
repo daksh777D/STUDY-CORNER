@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel - Orders</title>
+
+<!-- Firebase v8 -->
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#f4f6f8;
+    margin:0;
+}
+header{
+    background:#1e88e5;
+    color:white;
+    padding:20px;
+    text-align:center;
+}
+.container{
+    padding:20px;
+    max-width:1100px;
+    margin:auto;
+}
+.order{
+    background:white;
+    padding:15px;
+    margin-bottom:15px;
+    border-radius:10px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+.order h3{
+    margin:0 0 8px;
+    color:#1e88e5;
+}
+.row{
+    display:flex;
+    flex-wrap:wrap;
+    font-size:14px;
+}
+.row div{
+    width:50%;
+    margin-bottom:6px;
+}
+.badge{
+    display:inline-block;
+    padding:4px 10px;
+    background:green;
+    color:white;
+    border-radius:20px;
+    font-size:12px;
+}
+.price{
+    font-weight:bold;
+    color:#2e7d32;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🛠 Admin Order Panel</h1>
+    <p>Live Orders</p>
+</header>
+
+<div class="container" id="orders"></div>
+
+<script>
+// ================= FIREBASE =================
+var firebaseConfig = {
+  apiKey: "AIzaSyD47RO4a8ObVX0DFaIY_3WH5zOtP6nUYEM",
+  authDomain: "mrindiangamerdb.firebaseapp.com",
+  databaseURL: "https://mrindiangamerdb-default-rtdb.firebaseio.com",
+  projectId: "mrindiangamerdb"
+};
+
+firebase.initializeApp(firebaseConfig);
+var database = firebase.database();
+
+// ================= LOAD ORDERS =================
+const ordersDiv = document.getElementById("orders");
+
+database.ref("orders").on("value", snapshot => {
+    ordersDiv.innerHTML = "";
+
+    if(!snapshot.exists()){
+        ordersDiv.innerHTML = "<p>No orders yet.</p>";
+        return;
+    }
+
+    snapshot.forEach(child => {
+        const o = child.val();
+
+        ordersDiv.innerHTML += `
+        <div class="order">
+            <h3>${o.productName} <span class="badge">NEW</span></h3>
+
+            <div class="row">
+                <div><b>Order ID:</b> ${child.key}</div>
+                <div><b>Time:</b> ${o.time}</div>
+
+                <div><b>Customer:</b> ${o.name}</div>
+                <div><b>Phone:</b> ${o.phone}</div>
+
+                <div><b>City:</b> ${o.city}</div>
+                <div><b>Postal:</b> ${o.postal}</div>
+
+                <div><b>Quantity:</b> ${o.quantity}</div>
+                <div class="price"><b>Total:</b> ₹${o.totalPrice}</div>
+            </div>
+
+            <p><b>Address:</b> ${o.address}</p>
+            
+            <div class="status-box">
+  <label><input type="checkbox" onchange="updateStatus('${child.key}',1)"> Placed</label>
+  <label><input type="checkbox" onchange="updateStatus('${child.key}',2)"> Shipped</label>
+  <label><input type="checkbox" onchange="updateStatus('${child.key}',3)"> Out for Delivery</label>
+  <label><input type="checkbox" onchange="updateStatus('${child.key}',4)"> Delivered</label>
+</div>
+            
+        </div>
+        `;
+    });
+});
+
+function updateStatus(orderId, level){
+    firebase.database().ref("orders/" + orderId).update({
+        status: level
+    });
+}
+
+</script>
+
+</body>
+</html>

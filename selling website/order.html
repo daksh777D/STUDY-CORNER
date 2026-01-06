@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order Form</title>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#f4f6f8;
+    margin:0;
+}
+header{
+    background:#1e88e5;
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+.form-box{
+    max-width:500px;
+    margin:30px auto;
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+label{
+    font-weight:bold;
+}
+#heading1{
+    font-weight:bold;
+    color: green;
+}
+input, textarea{
+    width:100%;
+    padding:10px;
+    margin-top:5px;
+    margin-bottom:15px;
+    border-radius:5px;
+    border:1px solid #ccc;
+}
+.radio-group{
+    margin-bottom:15px;
+}
+.radio-group input{
+    width:auto;
+}
+.checkbox{
+    margin-bottom:15px;
+}
+.checkbox input{
+    width:auto;
+}
+.terms{
+    color:#1e88e5;
+    cursor:pointer;
+    text-decoration:underline;
+}
+button{
+    width:100%;
+    padding:12px;
+    background:#1e88e5;
+    color:white;
+    border:none;
+    border-radius:5px;
+    font-size:16px;
+    cursor:pointer;
+}
+button:hover{
+    background:#1565c0;
+}
+
+/* Overlay Popup */
+.overlay{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.5);
+    display:none;
+    align-items:center;
+    justify-content:center;
+}
+.popup{
+    background:white;
+    padding:30px;
+    border-radius:10px;
+    text-align:center;
+}
+.popup p{
+    color:red;
+    font-weight:bold;
+}
+
+.qty-box{
+    display:flex;
+    align-items:center;
+    margin-bottom:15px;
+}
+.qty-box button{
+    width:40px;
+    height:40px;
+    border:none;
+    background:#1e88e5;
+    color:white;
+    font-size:20px;
+    border-radius:5px;
+    cursor:pointer;
+}
+.qty-box button:hover{
+    background:#1565c0;
+}
+.qty-box input{
+    width:60px;
+    text-align:center;
+    margin:0 10px;
+    font-size:16px;
+    border:1px solid #ccc;
+    border-radius:5px;
+}
+.back {
+    text-align: center;
+    margin: 20px;
+}
+.back a {
+    text-decoration: none;
+    color: #ff0000;
+    font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+
+
+<header>
+    <h1>📦 Delivery Details</h1>
+</header>
+
+<div class="form-box">
+<form id="orderForm">
+<h2 id="heading1">WE DELIVER ORDER ONLY IN ONLINE PAYMENT</h2>
+<label>Are you from Gujarat?</label>
+<br>
+
+<div class="radio-group">
+    <input type="radio" name="gujarat" value="yes" required> Yes
+    <input type="radio" name="gujarat" value="no"> No
+</div>
+
+
+<br>
+<label>Quantity</label>
+<div class="qty-box">
+    <button type="button" onclick="changeQty(-1)">−</button>
+    <input type="number" id="quantity" value="1" min="1" readonly>
+    <button type="button" onclick="changeQty(1)">+</button>
+</div>
+
+<label>Total Price</label>
+<input type="text" id="totalPrice" readonly>
+
+<label>Name</label>
+<input type="text" id="name" required>
+
+<label>Phone Number</label>
+<input type="tel" id="phone" required>
+
+<label>City</label>
+<input type="text" id="city" required>
+
+<label>Address</label>
+<textarea id="address" required></textarea>
+
+<label>Postal Code</label>
+<input type="text" id="postal" required>
+
+<div class="checkbox">
+    <input type="checkbox" id="agree" required>
+    By clicking submit, you agree our 
+    <span class="terms" onclick="location.href='terms.html'">Terms and Conditions</span>
+</div>
+
+<button type="submit">Submit Order</button>
+
+<br>
+
+<div class="back">
+    <a href="main.html">❌ Cancel Order</a>
+</div>
+
+</form>
+</div>
+
+<!-- Overlay -->
+<div class="overlay" id="overlay">
+    <div class="popup">
+        <p>WE ARE WORKING ON IT BUT,</p>
+        <p>FOR NOW WE ONLY DELIVER IN GUJARAT(INDIA) ONLY</p>
+        <button onclick="closePopup()">OK</button>
+    </div>
+
+
+</div>
+
+
+
+
+
+<script>
+// ================= PRODUCT DATA =================
+const params = new URLSearchParams(window.location.search);
+const productId = params.get("pid");
+const productName = params.get("pname");
+const productPrice = parseInt(params.get("price")) || 0;
+
+// ================= QUANTITY & TOTAL =================
+function changeQty(val){
+    let qtyInput = document.getElementById("quantity");
+    let totalInput = document.getElementById("totalPrice");
+
+    let qty = parseInt(qtyInput.value);
+    qty += val;
+    if(qty < 1) qty = 1;
+
+    qtyInput.value = qty;
+    totalInput.value = "₹" + (qty * productPrice);
+}
+
+// initial total
+document.getElementById("totalPrice").value = "₹" + productPrice;
+
+// ================= FIREBASE =================
+var firebaseConfig = {
+  apiKey: "AIzaSyD47RO4a8ObVX0DFaIY_3WH5zOtP6nUYEM",
+  authDomain: "mrindiangamerdb.firebaseapp.com",
+  databaseURL: "https://mrindiangamerdb-default-rtdb.firebaseio.com",
+  projectId: "mrindiangamerdb"
+};
+
+firebase.initializeApp(firebaseConfig);
+var database = firebase.database();
+
+// ================= FORM SUBMIT =================
+document.getElementById("orderForm").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    let gujarat = document.querySelector('input[name="gujarat"]:checked').value;
+
+    if(gujarat === "no"){
+        document.getElementById("overlay").style.display = "flex";
+        return;
+    }
+
+    let qty = parseInt(document.getElementById("quantity").value);
+
+    let orderData = {
+        productId: productId,
+        productName: productName,
+        productPrice: productPrice,
+        quantity: qty,
+        totalPrice: qty * productPrice,
+        fromGujarat: gujarat,
+        name: document.getElementById("name").value,
+        phone: document.getElementById("phone").value,
+        city: document.getElementById("city").value,
+        address: document.getElementById("address").value,
+        postal: document.getElementById("postal").value,
+        time: new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })
+    };
+
+    database.ref("orders").push(orderData)
+    .then(() => {
+        window.location.href = "confirmed.html";
+    })
+    .catch(err => {
+        alert("Error: " + err.message);
+    });
+});
+
+function closePopup(){
+    document.getElementById("overlay").style.display="none";
+}
+</script>
+
+</body>
+</html>

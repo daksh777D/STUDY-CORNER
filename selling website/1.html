@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Orders</title>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+<style>
+body{
+    margin:0;
+    font-family: Arial, sans-serif;
+    background:#f4f6f8;
+}
+header{
+    background:#1e88e5;
+    color:white;
+    text-align:center;
+    padding:18px;
+}
+.container{
+    max-width:500px;
+    margin:20px auto;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 4px 10px rgba(0,0,0,.1);
+}
+input{
+    width:100%;
+    padding:10px;
+    margin-bottom:12px;
+    border-radius:6px;
+    border:1px solid #ccc;
+}
+button{
+    width:100%;
+    padding:12px;
+    background:#1e88e5;
+    color:white;
+    border:none;
+    border-radius:6px;
+    font-size:16px;
+}
+.order{
+    margin-top:15px;
+    padding:15px;
+    border-radius:8px;
+    background:#fafafa;
+    box-shadow:0 2px 6px rgba(0,0,0,.1);
+}
+.status{
+    font-weight:bold;
+}
+.s1{color:#555;}
+.s2{color:#ff9800;}
+.s3{color:#1e88e5;}
+.s4{color:green;}
+</style>
+</head>
+
+<body>
+
+<header>
+<h2>📦 My Orders</h2>
+</header>
+
+<div class="container">
+    <input type="tel" id="phone" placeholder="Enter phone number">
+    <button onclick="checkOrders()">Check</button>
+
+    <div id="orders"></div>
+</div>
+
+<script>
+/* Firebase Config */
+firebase.initializeApp({
+  apiKey: "AIzaSyD47RO4a8ObVX0DFaIY_3WH5zOtP6nUYEM",
+  authDomain: "mrindiangamerdb.firebaseapp.com",
+  databaseURL: "https://mrindiangamerdb-default-rtdb.firebaseio.com",
+  projectId: "mrindiangamerdb"
+});
+
+const db = firebase.database();
+
+/* Check Orders */
+function checkOrders(){
+    const phoneInput = document.getElementById("phone").value.trim();
+    const box = document.getElementById("orders");
+    box.innerHTML = "";
+
+    if(phoneInput === ""){
+        alert("Enter phone number");
+        return;
+    }
+
+    db.ref("orders").once("value", snap=>{
+        let found = false;
+
+        snap.forEach(child=>{
+            const o = child.val();
+            const savedPhone = String(o.phone || "").trim();
+
+            if(savedPhone === phoneInput){
+                found = true;
+
+                const status = o.status || 1;
+
+                box.innerHTML += 
+                <div class="order">
+                    <b>${o.productName || "Product"}</b><br>
+                    Qty: ${o.quantity}<br>
+                    Total: ₹${o.totalPrice}<br>
+                    <div class="status s${status}">
+                        Status: ${statusText(status)}
+                    </div>
+                </div>;
+            }
+        });
+
+        if(!found){
+            box.innerHTML = "<p style='color:red'>No orders found</p>";
+        }
+    });
+}
+
+/* Status Text */
+function statusText(s){
+    if(s==1) return "Placed";
+    if(s==2) return "Shipped";
+    if(s==3) return "Out for Delivery";
+    if(s==4) return "Delivered";
+}
+</script>
+
+</body>
+</html>

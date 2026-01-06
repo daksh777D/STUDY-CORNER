@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order Confirmed</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#008f00;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.card{
+    background:white;
+    padding:40px;
+    border-radius:15px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.15);
+    text-align:center;
+    animation: pop 0.6s ease;
+}
+
+@keyframes pop{
+    0%{transform:scale(0.5); opacity:0;}
+    100%{transform:scale(1); opacity:1;}
+}
+
+.checkmark{
+    width:80px;
+    height:80px;
+    border-radius:50%;
+    background:#008f00;
+    margin:0 auto 20px;
+    position:relative;
+    animation: bounce 1s ease;
+}
+
+@keyframes bounce{
+    0%{transform:scale(0);}
+    60%{transform:scale(1.2);}
+    100%{transform:scale(1);}
+}
+
+.checkmark:after{
+    content:"";
+    position:absolute;
+    width:20px;
+    height:40px;
+    border:solid white;
+    border-width:0 6px 6px 0;
+    transform:rotate(45deg);
+    left:28px;
+    top:15px;
+}
+
+h1{
+    color:#008f00;
+    margin-bottom:10px;
+}
+
+p{
+    color:#555;
+    font-size:16px;
+}
+
+.btn{
+    margin-top:25px;
+    padding:12px 25px;
+    background:#008f00;
+    color:white;
+    border:none;
+    border-radius:6px;
+    font-size:16px;
+    cursor:pointer;
+}
+
+.btn:hover{
+    background:#003f00;
+}
+
+#B1{
+    color: #008f00;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <div class="checkmark"></div>
+    <h1>Order Confirmed!</h1>
+    <p>Thank you for your purchase.<br>
+       Your order has been placed successfully.</p>
+       <br>
+<h3 id="B1" > YOU WILL BE REVICE CALL <br> WITHIN 12 HOURS 🕓 </h3>
+    <button class="btn"  onclick="buyNow()">Continue Shopping</button>
+</div>
+<script>
+function buyNow(){
+    window.location.href =
+    `main.html`;
+}
+</script>
+<!-- SUCCESS SOUND -->
+<audio id="successSound" preload="auto">
+    <source src="order_confirmed.mp3" type="audio">
+</audio>
+
+<script>
+window.addEventListener("click", function () {
+    const sound = document.getElementById("successSound");
+    sound.play().catch(err => console.log("Sound blocked:", err));
+}, { once: true });
+</script>
+
+</body>
+</html>
