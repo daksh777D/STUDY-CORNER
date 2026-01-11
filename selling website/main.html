@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SHOP GUJARAT</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+    margin: 0;
+}
+header {
+    background: #1e88e5;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+.categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 30px;
+}
+.category {
+    background: white;
+    padding: 30px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: 0.3s;
+}
+.category:hover {
+    transform: scale(1.05);
+}
+a {
+    text-decoration: none;
+    color: black;
+}
+
+
+.rainbow-text {
+    
+    font-size: 48px;
+    font-weight: bold;
+    text-align: center;
+    background: linear-gradient(270deg, 
+        #ff1744, 
+        #ff9100, 
+        #ffee58, 
+        #00e676, 
+        #00b0ff, 
+        #d500f9
+    );
+    background-size: 1200% 1200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    animation: rainbowMove 30s ease infinite;
+}
+
+@keyframes rainbowMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+</style>
+</head>
+
+
+
+<body>
+<header>
+    <h3>Welcome To :</h3>
+    <h1 class="Nrainbow-text">❤️ SHOP GUJARAT</h1>
+    <p>Select a Category</p>
+</header>
+
+<div class="category-card" onclick="location.href='my_orders.html'">
+    <h3>📦 My Orders</h3>
+</div>
+
+<div class="categories">
+    <a href="products_HandMade.html">
+        <div class="category">✨ Hand-Made</div>
+    </a>
+    <a href="Cloths.html">
+        <div class="category">👕 Clothing</div>
+    </a>
+    <a href="products_Ornaments.html">
+        <div class="category">🌟 Ornaments</div>
+    </a>
+    
+</div>
+
+</body>
+</html>
