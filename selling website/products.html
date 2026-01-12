@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Products</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+    margin: 0;
+}
+header {
+    background: #1e88e5;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 30px;
+}
+.product {
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.product img {
+    width: 100%;
+    border-radius: 8px;
+}
+.price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #2e7d32;
+}
+.stock {
+    color: green;
+    font-weight: bold;
+}
+.Nstock {
+    color: rgb(255, 0, 0);
+    font-weight: bold;
+}
+.buy-btn {
+    background: #1e88e5;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.buy-btn:hover {
+    background: #1565c0;
+}
+.Nbuy-btn {
+    background: #ff0000;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.Nbuy-btn:hover {
+    background: #830000;
+}
+.back {
+    text-align: center;
+    margin: 20px;
+}
+.back a {
+    text-decoration: none;
+    color: #1e88e5;
+    font-weight: bold;
+}
+.best-deal{
+    display:inline-block;
+    padding:12px 18px;
+    border-radius:12px;
+    background:linear-gradient(135deg,#1e88e5,#42a5f5);
+    color:white;
+    box-shadow:0 0 15px rgba(30,136,229,.6);
+    position:relative;
+    overflow:hidden;
+    animation:pulse 2s infinite;
+}
+
+.best-deal .shine{
+    font-weight:bold;
+    font-size:18px;
+    position:relative;
+    z-index:2;
+}
+
+/* SHINE EFFECT */
+.best-deal::after{
+    content:"";
+    position:absolute;
+    top:0;
+    left:-60%;
+    width:50%;
+    height:100%;
+    background:linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,255,255,.6),
+        transparent
+    );
+    animation:shine 2.5s infinite;
+}
+
+/* COUNTDOWN */
+.countdown{
+    margin-top:6px;
+    font-size:14px;
+    font-weight:bold;
+    letter-spacing:1px;
+}
+
+/* Animations */
+@keyframes shine{
+    0%{left:-60%}
+    100%{left:120%}
+}
+@keyframes pulse{
+    0%{transform:scale(1)}
+    50%{transform:scale(1.04)}
+    100%{transform:scale(1)}
+}
+</style>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+
+</head>
+
+<body>
+<header>
+    <h1>👚 Cloths For Girls</h1>
+</header>
+
+<div class="products">
+
+  <!-- PRODUCT 1 -->
+<div class="product">
+
+     <Br>
+         <Br>
+           
+
+    <img src="product photos/P001.jpg">
+    <h3>Code-Set</h3>
+    <h4>Company : Lazri</h4>
+    <h4>Size : M</h4>
+    <p class="price">₹400</p>
+    <p class="stock">✔ In Stock</p>
+    <p class="stock"><b>📦 FREE DELIVERY</b></p>
+    <button class="buy-btn" onclick="buyNow('P001','Code-Set','400')">Buy Now</button>
+</div>
+
+<!-- PRODUCT 2 -->
+<div class="product">
+    <Br>
+         <Br>
+             <Br> 
+                 <Br>
+                     <Br>
+                        
+     <img src="product photos/P002.jpg">
+
+    <h3>Code-Set</h3>
+     <h4>Company : Lazri</h4>
+    <h4>Size : M</h4>
+    <p class="price">₹400</p>
+    <p class="stock">✔ In Stock</p>
+      <p class="stock"><b>📦 FREE DELIVERY</b></p>
+    <button class="buy-btn" onclick="buyNow('P002','Code-Set','400')">Buy Now</button>
+</div>
+
+<!-- PRODUCT 3 -->
+<div class="product">
+     <Br>
+         <Br>
+             <Br>
+                 <Br>
+                     <Br>
+
+     <img src="product photos/P003.jpg">
+
+    <h3>Code-set</h3>
+   <h4>Company : Lazri</h4>
+    <h4>Size : M</h4>
+    <p class="price">₹400</p>
+    <p class="stock">✔ In Stock</p>
+      <p class="stock"><b>📦 FREE DELIVERY</b></p>
+    <button class="buy-btn" onclick="buyNow('P003','Code-Set','400')">Buy Now</button>
+</div>
+
+<!-- PRODUCT 4 -->
+<div class="product">
+    <img src="product photos/P004.jpg">
+
+    <h3>Kurti</h3>
+ <h4>Company : Lazri</h4>
+    <h4>Size : M</h4>
+    <p class="price">₹350</p>
+    <p class="stock">✔ In Stock</p>
+      <p class="stock"><b>📦 FREE DELIVERY</b></p>
+    <button class="buy-btn" onclick="buyNow('P004','Kurti','350')">Buy Now</button>
+</div>
+
+
+<!-- PRODUCT 5 -->
+<div class="product">
+     <Br>
+         <Br>
+             <Br>
+                <Br>
+     <img src="product photos/P005.jpg">
+
+    <h3>Code-Set</h3>
+   <h4>Company : Lazri</h4>
+    <h4>Size : M</h4>
+    <p class="price">₹400</p>
+    <p class="stock">✔ In Stock</p>
+      <p class="stock"><b>📦 FREE DELIVERY</b></p>
+    <button class="buy-btn" onclick="buyNow('P005','Code-Set','400')">Buy Now</button>
+</div>
+
+
+<!-- PRODUCT 6 -->
+<div class="product">
+    <Br>
+     <img src="product photos/P006.jpg">
+
+    <h3>Kurti</h3>
+     <h4>Company : Lazri</h4>
+    <h4>Size : XXL</h4>
+    <p class="price">₹350</p>
+    <p class="stock">✔ In Stock</p>
+      <p class="stock"><b>📦 FREE DELIVERY</b></p>
+    <button class="buy-btn" onclick="buyNow('P006','Kurti','350')">Buy Now</button>
+</div>
+
+
+<!-- PRODUCT 7 -->
+<div class="product">
+    <Br>
+     <img src="product photos/P007.jpg">
+
+    <h3>Kurti</h3>
+    <h4>Company : Lazri</h4>
+    <h4>Size : M</h4>
+    <p class="price">₹400</p>
+    <p class="Nstock">❌ Out of stock</p>
+      <p class="stock"><b>📦 FREE DELIVERY</b></p>
+    <button class="Nbuy-btn" onclick="NbuyNow('P007','Kurti','400')">OUT OF STOCK !</button>
+</div>
+
+
+<!-- PRODUCT 8 -->
+<div class="product">
+     <Br>
+         <Br>
+             <Br>
+                <Br>
+    <img src="product photos/P008.jpg">
+
+    <h3>Kurti + Pant Pair</h3>
+    <h4>Company : Lazri</h4>
+    <h4>Size : L</h4>
+    <p class="price">₹400</p>
+    <p class="stock">✔ In Stock</p>
+      <p class="stock"><b>📦 FREE DELIVERY</b></p>
+    <button class="buy-btn" onclick="buyNow('P008','Kurti + Pant Pair','400')">Buy Now</button>
+</div>
+
+
+<!-- PRODUCT 9 -->
+<div class="product">
+     <Br>
+        <Br>
+    <img src="product photos/P009.jpg">
+
+    <h3>Kurti + Pant Pair</h3>
+    <h4>Company : Lazri</h4>
+    <h4>Size : L</h4>
+    <p class="price">₹400</p>
+    <p class="stock">✔ In Stock</p>
+      <p class="stock"><b>📦 FREE DELIVERY</b></p>
+    <button class="buy-btn" onclick="buyNow('P009','Kurti + Pant Pair','400')">Buy Now</button>
+</div>
+
+
+
+<!-- PRODUCT 10 -->
+<div class="product">
+    <img src="product photos/P010.jpg">
+
+    <h3>2 Kurti , 1 Pant , 1 Dupatta</h3>
+
+    <div class="best-deal">
+    <span class="shine">🔥 BEST DEAL</span>
+   <!-- <div class="countdown" id="dealTimer">00:00:00</div> REMOVE WHEN USE-->
+</div>
+
+    <h4>Size : M</h4>
+    <p class="price">₹700</p>
+    <p class="stock">✔ In Stock</p>
+      <p class="stock"><b>📦 FREE DELIVERY</b></p>
+    <button class="buy-btn" onclick="buyNow('P010','2 Kurti , 1 Pant , 1 Dupatta','700')">Buy Now</button>
+</div>
+
+
+
+
+
+  <!-- PRODUCT 11 -->
+<div class="product">
+
+     <Br>
+         <Br>
+           
+
+    <img src="product photos/P011.jpg">
+    <h3>Round-Shape Kurti</h3>
+
+    <h4>Size : XL</h4>
+    <p class="price">₹150</p>
+    <p class="stock">✔ In Stock</p>
+    <p class="stock"><b>📦 FREE DELIVERY</b></p>
+    <button class="buy-btn" onclick="buyNow('P011','Round-Shape Kurti','150')">Buy Now</button>
+</div>
+
+<!-- PRODUCT 12 -->
+<div class="product">
+    <Br>
+         <Br>
+             <Br> 
+                 <Br>
+                     <Br>
+                        
+     <img src="product photos/P012.jpg">
+
+    <h3>Sleeve-Less Kurti</h3>
+
+    <h4>Size : S</h4>
+    <p class="price">₹125</p>
+    <p class="stock">✔ In Stock</p>
+      <p class="stock"><b>📦 FREE DELIVERY</b></p>
+    <button class="buy-btn" onclick="buyNow('P012','Sleeve-Less Kurti','125')">Buy Now</button>
+</div>
+
+<!-- PRODUCT 13 -->
+<div class="product">
+     <Br>
+         <Br>
+             <Br>
+                 <Br>
+                     <Br>
+
+     <img src="product photos/P013.jpg">
+
+    <h3>Kurti</h3>
+ 
+    <h4>Size : S</h4>
+    <p class="price">₹125</p>
+    <p class="stock">✔ In Stock</p>
+      <p class="stock"><b>📦 FREE DELIVERY</b></p>
+    <button class="buy-btn" onclick="buyNow('P013','Kurti','125')">Buy Now</button>
+</div>
+
+<!-- PRODUCT 14 -->
+<div class="product">
+    <img src="product photos/P014.jpg">
+
+    <h3>Kurti</h3>
+
+    <h4>Size : S</h4>
+    <p class="price">₹100</p>
+    <p class="stock">✔ In Stock</p>
+      <p class="stock"><b>📦 FREE DELIVERY</b></p>
+    <button class="buy-btn" onclick="buyNow('P014','Kurti','100')">Buy Now</button>
+</div>
+
+
+<!-- PRODUCT 15 -->
+<div class="product">
+     <Br>
+         <Br>
+             <Br>
+                <Br>
+     <img src="product photos/P015.jpg">
+
+       <h3>Kurti</h3>
+   
+    <h4>Size : S</h4>
+    <p class="price">₹100</p>
+    <p class="stock">✔ In Stock</p>
+      <p class="stock"><b>📦 FREE DELIVERY</b></p>
+    <button class="buy-btn" onclick="buyNow('P015','Kurti','100')">Buy Now</button>
+</div>
+
+
+<!-- PRODUCT 16 -->
+<div class="product">
+    <Br>
+     <img src="product photos/P016.jpg">
+
+    <h3>Kurti(Wool-Thread Design)</h3>
+  
+    <h4>Size : XL</h4>
+    <p class="price">₹125</p>
+    <p class="stock">✔ In Stock</p>
+      <p class="stock"><b>📦 FREE DELIVERY</b></p>
+    <button class="buy-btn" onclick="buyNow('P016','Kurti(Wool-Thread Design)','125')">Buy Now</button>
+</div>
+
+
+<!-- PRODUCT 17 -->
+<div class="product">
+    <Br>
+     <img src="product photos/P017.jpg">
+
+    <h3>Leggings</h3>
+
+    <h4>Size : XL(both)</h4>
+    <p class="price">₹200</p>
+    <p class="stock">✔ In Stock</p>
+      <p class="stock"><b>📦 FREE DELIVERY</b></p>
+    <button class="buy-btn" onclick="buyNow('P017','leggings','200')">Buy Now</button>
+</div>
+
+
+<!-- PRODUCT 18 -->
+<div class="product">
+     <Br>
+         <Br>
+             <Br>
+                <Br>
+    <img src="product photos/P018.jpg">
+
+    <h3>Leggings</h3>
+ 
+    <h4>Size : L(both)</h4>
+    <p class="price">₹200</p>
+    <p class="stock">✔ In Stock</p>
+      <p class="stock"><b>📦 FREE DELIVERY</b></p>
+    <button class="buy-btn" onclick="buyNow('P018','Leggings','200')">Buy Now</button>
+</div>
+
+
+<!-- PRODUCT 19 -->
+<div class="product">
+     <Br>
+        <Br>
+    <img src="product photos/P019.jpg">
+
+    <h3>Silk dupatta</h3>
+ 
+    <h4>Size : Free Size</h4>
+    <p class="price">₹100</p>
+    <p class="stock">✔ In Stock</p>
+      <p class="stock"><b>📦 FREE DELIVERY</b></p>
+    <button class="buy-btn" onclick="buyNow('P019','Silk dupatta','100')">Buy Now</button>
+</div>
+
+
+
+<!-- PRODUCT 20 -->
+<div class="product">
+    <img src="product photos/P020.jpg">
+
+    <h3></h3>
+
+
+    <h4>Size : S</h4>
+    <p class="price">₹125</p>
+    <p class="stock">✔ In Stock</p>
+      <p class="stock"><b>📦 FREE DELIVERY</b></p>
+    <button class="buy-btn" onclick="buyNow('P020','','125')">Buy Now</button>
+</div>
+
+
+<!-- PRODUCT 21 -->
+<div class="product">
+    <img src="product photos/P021.jpg">
+
+    <h3>Leggings</h3>
+
+
+    <h4>Size : XXL</h4>
+    <p class="price">₹100</p>
+    <p class="stock">✔ In Stock</p>
+      <p class="stock"><b>📦 FREE DELIVERY</b></p>
+    <button class="buy-btn" onclick="buyNow('P021','Leggings','100')">Buy Now</button>
+</div>
+
+<div id="firebaseProducts" class="products"></div>
+
+</div>
+
+<div class="back">
+    <a href="main.html">⬅ Back to Categories</a>
+</div>
+
+<script>
+// Firebase config (same as admin)
+var firebaseConfig = {
+  apiKey: "AIzaSyD47RO4a8ObVX0DFaIY_3WH5zOtP6nUYEM",
+  authDomain: "mrindiangamerdb.firebaseapp.com",
+  databaseURL: "https://mrindiangamerdb-default-rtdb.firebaseio.com",
+  projectId: "mrindiangamerdb",
+  storageBucket: "mrindiangamerdb.appspot.com",
+  messagingSenderId: "776760304090",
+  appId: "1:776760304090:web:519870998665438228a0e3"
+};
+
+firebase.initializeApp(firebaseConfig);
+var database = firebase.database();
+
+window.onload = function(){
+    loadFirebaseProducts();
+};
+
+function loadFirebaseProducts(){
+    database.ref("products").once("value", function(snapshot){
+        let container = document.getElementById("firebaseProducts");
+
+        snapshot.forEach(function(child){
+            let data = child.val();
+
+
+        // ✅ Only C_G Category
+        if(data.category === "s"){
+
+            
+                let div = document.createElement("div");
+                div.className = "product";   // SAME CLASS as your static products
+
+                div.innerHTML = `
+                <div class="product">
+                    <img src="${data.image}" >
+                    <h3>${data.productName}</h3>
+               
+                    <p>Size: ${data.size}</p>
+
+                         <p class="price">Price: ₹${data.price}</p>
+
+                    <p class="stock">✔ In Stock</p>
+                    <p class="stock"> <b> Delivery: ${data.delivery} </b> </p>
+                    <button  class="buy-btn" onclick="buyNow('${data.productId}','${data.productName}','${data.price}')">
+                        Buy Now
+                    </button>
+                    <br>
+                </div>
+                
+            `;
+
+           // ✅ Append new card
+                 container.appendChild(div);
+        }
+    });
+});
+
+}
+// Buy Button Redirect
+function buyNow(pid, pname, price){
+    window.location.href = `order.html?pid=${pid}&pname=${pname}&price=${price}`;
+}
+
+</script>
+
+
+<script>
+
+// Set deal end time (example: 6 hours)
+const dealEnd = new Date().getTime() + (6 * 60 * 60 * 1000);
+
+setInterval(()=>{
+    const now = new Date().getTime();
+    let diff = dealEnd - now;
+
+    if(diff <= 0){
+        document.getElementById("dealTimer").innerText = "EXPIRED";
+        return;
+    }
+
+    let h = Math.floor(diff / (1000*60*60));
+    let m = Math.floor((diff % (1000*60*60)) / (1000*60));
+    let s = Math.floor((diff % (1000*60)) / 1000);
+
+    document.getElementById("dealTimer").innerText =
+        ${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')};
+},1000);
+
+</script>
+
+<script>
+function buyNow(id, name, price){
+    window.location.href =
+    `order.html?pid=${id}&pname=${name}&price=${price}`;
+}
+</script>
+
+</body>
+</html>

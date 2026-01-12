@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Product - Admin Panel</title>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+    <style>
+        body{
+            font-family: Arial;
+            background:#f4f6f8;
+            margin:0;
+        }
+        header{
+            background:#1e88e5;
+            color:white;
+            text-align:center;
+            padding:15px;
+            font-size:22px;
+        }
+        .box{
+            max-width:500px;
+            margin:30px auto;
+            background:white;
+            padding:25px;
+            border-radius:10px;
+            box-shadow:0 4px 10px rgba(0,0,0,0.1);
+        }
+        label{
+            font-weight:bold;
+            display:block;
+            margin-top:15px;
+        }
+        input, select{
+            width:100%;
+            padding:10px;
+            margin-top:5px;
+            border-radius:5px;
+            border:1px solid #ccc;
+        }
+        button{
+            margin-top:25px;
+            width:100%;
+            padding:12px;
+            background:#1e88e5;
+            color:white;
+            border:none;
+            border-radius:5px;
+            font-size:16px;
+            cursor:pointer;
+        }
+        button:hover{
+            background:#1565c0;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>➕ Add Product (Admin)</header>
+
+<div class="box">
+    <form id="productForm">
+
+        <label>Product Name</label>
+        <input type="text" id="pname" required>
+
+        <label>Category</label>
+        <select id="category" required>
+            <option value="">Select Category</option>
+            <option value="s/HandMade">HandMade</option>
+            <option value="s/cloths for boys">Cloths For Boys</option>
+            <option value="s">Cloths For Girls</option>
+            <option value="s/Ornaments">Ornaments</option>
+        </select>
+
+        <label>Product ID (Image name like A_P007.jpg)</label>
+        <input type="text" id="pid" placeholder="A_P007.jpg" required>
+
+        <label>Price (₹)</label>
+        <input type="number" id="price" required>
+
+        <label>Delivery Option</label>
+        <select id="delivery" required>
+            <option value="">Select Delivery</option>
+            <option value="Free">Free</option>
+            <option value="80">₹80</option>
+        </select>
+
+        <label>Size</label>
+        <input type="text" id="size" placeholder="Small / Medium / Large" required>
+
+        <button type="submit">Add Product</button>
+
+    </form>
+</div>
+
+<script>
+/* Firebase Config */
+var firebaseConfig = {
+  apiKey: "AIzaSyD47RO4a8ObVX0DFaIY_3WH5zOtP6nUYEM",
+  authDomain: "mrindiangamerdb.firebaseapp.com",
+  databaseURL: "https://mrindiangamerdb-default-rtdb.firebaseio.com",
+  projectId: "mrindiangamerdb",
+  storageBucket: "mrindiangamerdb.appspot.com",
+  messagingSenderId: "776760304090",
+  appId: "1:776760304090:web:519870998665438228a0e3"
+};
+
+firebase.initializeApp(firebaseConfig);
+var database = firebase.database();
+
+/* Form Submit */
+document.getElementById("productForm").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    let pname = document.getElementById("pname").value;
+    let category = document.getElementById("category").value;
+    let pid = document.getElementById("pid").value;
+    let price = document.getElementById("price").value;
+    let delivery = document.getElementById("delivery").value;
+    let size = document.getElementById("size").value;
+
+    // Image path based on category
+    let imagePath = "product photo" + category + "/" + pid + ".jpg";
+
+    let productData = {
+        productName: pname,
+        category: category,
+        productId: pid,
+        image: imagePath,
+        price: price,
+        delivery: delivery,
+        size: size,
+        time: new Date().toISOString()
+    };
+
+    
+    // ✅ PUSH creates new product every time
+    database.ref("products").push(productData)
+    .then(() => {
+        alert("Product Added Successfully!");
+        this.reset();
+    })
+    .catch((error) => {
+        alert("Error: " + error.message);
+    });
+});
+</script>
+
+</body>
+</html>
