@@ -8,84 +8,51 @@
   </style>
 </head>
 <body>
-  <script type="module"> 
 
-import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160/build/three.module.js';
+<!-- ✅ IMPORT MAP (THIS FIXES THE ERROR) -->
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160/build/three.module.js"
+  }
+}
+</script>
+
+<!-- ✅ MODULE SCRIPT -->
+<script type="module">
+import * as THREE from 'three';
 import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.160/examples/jsm/loaders/GLTFLoader.js';
 
-// --------------------
-// SCENE
-// --------------------
+// Scene
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x202020);
 
-// --------------------
-// CAMERA
-// --------------------
-const camera = new THREE.PerspectiveCamera(
-  75,
-  window.innerWidth / window.innerHeight,
-  0.1,
-  1000
-);
-camera.position.set(0, 2, 6);
+// Camera
+const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+camera.position.z = 5;
 
-// --------------------
-// RENDERER
-// --------------------
-const renderer = new THREE.WebGLRenderer({ antialias: true });
+// Renderer
+const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-// --------------------
-// LIGHTS
-// --------------------
-scene.add(new THREE.AmbientLight(0xffffff, 0.6));
+// Light
+scene.add(new THREE.AmbientLight(0xffffff, 1));
 
-const dirLight = new THREE.DirectionalLight(0xffffff, 1);
-dirLight.position.set(5, 10, 5);
-scene.add(dirLight);
-
-// --------------------
-// LOAD GLB MODEL
-// --------------------
-const loader = new GLTFLoader();
-loader.load(
-  'scene.glb',   // <-- your GLB file
-  (gltf) => {
-    const model = gltf.scene;
-
-    // Adjust if needed
-    model.scale.set(1, 1, 1);
-    model.position.set(0, 0, 0);
-
-    scene.add(model);
-  },
+// Load GLB
+new GLTFLoader().load(
+  'scene.glb',
+  (gltf) => scene.add(gltf.scene),
   undefined,
-  (error) => {
-    console.error('Error loading GLB:', error);
-  }
+  (e) => console.error(e)
 );
 
-// --------------------
-// ANIMATION LOOP
-// --------------------
+// Render loop
 function animate() {
   requestAnimationFrame(animate);
   renderer.render(scene, camera);
 }
 animate();
+</script>
 
-// --------------------
-// HANDLE RESIZE
-// --------------------
-window.addEventListener('resize', () => {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-});
-
-  </script>
 </body>
-
 </html>
