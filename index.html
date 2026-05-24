@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project OASIS</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#eef7ff;
+    color:#222;
+}
+
+/* NAVBAR */
+
+nav{
+    width:100%;
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:1000;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:18px 8%;
+
+    background:rgba(255,255,255,0.15);
+    backdrop-filter:blur(10px);
+}
+
+.logo{
+    color:white;
+    font-size:28px;
+    font-weight:700;
+}
+
+.nav-links{
+    display:flex;
+    gap:20px;
+}
+
+.nav-links a{
+    text-decoration:none;
+    color:white;
+    font-weight:500;
+}
+
+.login-btn{
+    padding:12px 20px;
+    border:none;
+    border-radius:12px;
+    background:white;
+    color:#008cff;
+    font-weight:600;
+    cursor:pointer;
+}
+
+/* HERO */
+
+.hero{
+    min-height:100vh;
+
+    background:
+    linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.45)),
+    url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=2070&auto=format&fit=crop')
+    center/cover no-repeat;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    text-align:center;
+    color:white;
+    padding:20px;
+}
+
+.hero-content{
+    max-width:850px;
+}
+
+.hero-content h1{
+    font-size:65px;
+    margin-bottom:20px;
+}
+
+.hero-content p{
+    font-size:20px;
+    line-height:1.8;
+    margin-bottom:35px;
+}
+
+.hero-buttons{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.hero-buttons button{
+    padding:16px 28px;
+    border:none;
+    border-radius:14px;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.primary-btn{
+    background:#00b4ff;
+    color:white;
+}
+
+.secondary-btn{
+    background:white;
+    color:#008cff;
+}
+
+/* SECTION */
+
+.section{
+    padding:90px 8%;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:50px;
+}
+
+.section-title h2{
+    font-size:42px;
+    color:#008cff;
+    margin-bottom:10px;
+}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:25px;
+}
+
+.card{
+    background:white;
+    padding:30px;
+    border-radius:20px;
+
+    box-shadow:0 5px 20px rgba(0,0,0,0.08);
+
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+}
+
+.card h3{
+    color:#00a6ff;
+    margin-bottom:15px;
+}
+
+.card p{
+    line-height:1.8;
+    color:#555;
+}
+
+/* STATS */
+
+.stats{
+    background:linear-gradient(135deg,#00b4ff,#008cff);
+    color:white;
+}
+
+.stats-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:25px;
+}
+
+.stat-card{
+    text-align:center;
+    padding:30px;
+}
+
+.stat-card h1{
+    font-size:52px;
+    margin-bottom:10px;
+}
+
+/* CTA */
+
+.cta{
+    text-align:center;
+}
+
+.cta-box{
+    background:white;
+    padding:50px;
+    border-radius:25px;
+
+    box-shadow:0 5px 20px rgba(0,0,0,0.08);
+}
+
+.cta-box h2{
+    color:#008cff;
+    margin-bottom:20px;
+    font-size:40px;
+}
+
+.cta-box p{
+    line-height:1.8;
+    margin-bottom:30px;
+}
+
+.cta-box button{
+    padding:16px 30px;
+    border:none;
+    border-radius:14px;
+    background:#00b4ff;
+    color:white;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+/* FOOTER */
+
+footer{
+    background:#0f172a;
+    color:white;
+    text-align:center;
+    padding:30px;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+nav{
+    padding:18px 5%;
+}
+
+.nav-links{
+    display:none;
+}
+
+.hero-content h1{
+    font-size:42px;
+}
+
+.hero-content p{
+    font-size:17px;
+}
+
+.section-title h2{
+    font-size:32px;
+}
+
+.cta-box h2{
+    font-size:30px;
+}
+
+}
+
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+
+<nav>
+
+    <div class="logo">
+        OASIS
+    </div>
+
+    <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#work">Our Work</a>
+        <a href="#impact">Impact</a>
+        <a href="#join">Join</a>
+    </div>
+
+    <button class="login-btn"
+    onclick="window.location.href='auth.html'">
+        Login
+    </button>
+
+</nav>
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <h1>
+            Restoring Water. Restoring Life.
+        </h1>
+
+        <p>
+            Project OASIS is transforming dry lands into green futures through check dams, groundwater restoration and community-driven impact.
+        </p>
+
+        <div class="hero-buttons">
+
+            <button class="primary-btn"
+            onclick="window.location.href='auth.html'">
+                Become Volunteer
+            </button>
+
+            <button class="secondary-btn"
+            onclick="document.getElementById('about').scrollIntoView()">
+                Learn More
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ABOUT -->
+
+<section class="section" id="about">
+
+    <div class="section-title">
+
+        <h2>About Project OASIS</h2>
+
+        <p>
+            Building water infrastructure for a sustainable India.
+        </p>
+
+    </div>
+
+    <div class="cards">
+
+        <div class="card">
+
+            <h3>Water Conservation</h3>
+
+            <p>
+                Check dams slow water flow and recharge groundwater naturally.
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <h3>Farmer Support</h3>
+
+            <p>
+                Farmers regain access to water for irrigation and agriculture.
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <h3>Community Impact</h3>
+
+            <p>
+                Villages become greener, stronger and more self-sustainable.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- IMPACT -->
+
+<section class="section stats" id="impact">
+
+    <div class="section-title">
+
+        <h2 style="color:white;">
+            Our Impact
+        </h2>
+
+    </div>
+
+    <div class="stats-grid">
+
+        <div class="stat-card">
+            <h1>57+</h1>
+            <p>Check Dams Built</p>
+        </div>
+
+        <div class="stat-card">
+            <h1>1L+</h1>
+            <p>Farmers Helped</p>
+        </div>
+
+        <div class="stat-card">
+            <h1>2030</h1>
+            <p>Vision Target</p>
+        </div>
+
+        <div class="stat-card">
+            <h1>1000+</h1>
+            <p>Future Check Dams</p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- HOW TO HELP -->
+
+<section class="section" id="work">
+
+    <div class="section-title">
+
+        <h2>How You Can Help</h2>
+
+    </div>
+
+    <div class="cards">
+
+        <div class="card">
+
+            <h3>Video Editing</h3>
+
+            <p>
+                Create awareness reels and social media content.
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <h3>Graphic Designing</h3>
+
+            <p>
+                Design posters, campaigns and educational graphics.
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <h3>Digital Support</h3>
+
+            <p>
+                Help manage websites, databases and online campaigns.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- CTA -->
+
+<section class="section cta" id="join">
+
+    <div class="cta-box">
+
+        <h2>
+            Become a Volunteer Today
+        </h2>
+
+        <p>
+            Join the mission to restore groundwater, support farmers and create a greener India.
+        </p>
+
+        <button onclick="window.location.href='auth.html'">
+            Join Project OASIS
+        </button>
+
+    </div>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+
+    © 2026 Project OASIS | Built For Water Conservation & Rural Development
+
+</footer>
+
+</body>
+</html>
